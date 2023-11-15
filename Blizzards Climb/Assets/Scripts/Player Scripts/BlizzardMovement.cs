@@ -60,5 +60,12 @@ public class BlizzardMovement : MonoBehaviour
 
         }
     }
+
+    // private void OnCollisionEnter2D(Collision2D collider) {
+    //     Debug.Log("Collision.");
+    //     if (collider.gameObject.tag == "Enemy") {
+    //         // Do damage
+    //     }
+    // }
 }
 
