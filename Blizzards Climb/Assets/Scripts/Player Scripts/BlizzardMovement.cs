@@ -14,12 +14,18 @@ public class BlizzardMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-
+    [SerializeField] private Transform iceCheck;
+    [SerializeField] private LayerMask iceLayer;
 
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-       
+
+        if (IsGrounded() && IsIcey())
+	    {
+	        rb.velocity = new Vector2(4f, rb.velocity.y);
+	    }
+     
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -41,7 +47,11 @@ public class BlizzardMovement : MonoBehaviour
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
-
+    private bool IsIcey()
+    {
+        return Physics2D.OverlapCircle(iceCheck.position, 0.2f, iceLayer);
+    } 
+    
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
@@ -60,5 +70,12 @@ public class BlizzardMovement : MonoBehaviour
 
         }
     }
+
+    // private void OnCollisionEnter2D(Collision2D collider) {
+    //     Debug.Log("Collision.");
+    //     if (collider.gameObject.tag == "Enemy") {
+    //         // Do damage
+    //     }
+    // }
 }
 
