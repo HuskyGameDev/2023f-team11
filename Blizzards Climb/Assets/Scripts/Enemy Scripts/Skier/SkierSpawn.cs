@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkierSpawn : MonoBehaviour
 {
-    public GameObject skier; // Sets the game object to the skier
+    public GameObject enemy; // Sets the game object to the skier
     public float interval = 250; // time interval between spawns
     private float counter = 0; // counter for number of skiers
 
@@ -15,13 +15,8 @@ public class SkierSpawn : MonoBehaviour
 
         if(counter >= interval) {
             counter = 0;
-            Instantiate(skier, transform.position, transform.rotation);
+            Instantiate(enemy, transform.position, transform.rotation);
         }
-    }
-
-    void OnBecameInvisible() 
-    {
-        Destroy(skier);
     }
 
 }
