@@ -5,7 +5,7 @@ using UnityEngine;
 public class FastBirdSpawn : MonoBehaviour
 {
     public GameObject bird; // Sets the game object to the bird
-    public float interval = 250; // time interval between spawns
+    public float interval = 500; // time interval between spawns
     private float counter = 0; // counter for number of birds
 
     // Update is called once per frame
@@ -17,10 +17,5 @@ public class FastBirdSpawn : MonoBehaviour
             counter = 0;
             Instantiate(bird, transform.position, transform.rotation);
         }
-    }
-
-    void OnBecameInvisible() 
-    {
-        Destroy(bird);
     }
 }
