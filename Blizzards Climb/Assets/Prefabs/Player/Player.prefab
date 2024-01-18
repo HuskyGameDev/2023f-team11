@@ -119,10 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014df4001144c8e45a4c0ff7b21c4dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 16
-  GroundDeceleration: 20
-  AirSpeed: 8
-  AirDeceleration: 40
+  speed: 20
+  GroundDeceleration: 5
+  AirSpeed: 6
+  AirDeceleration: 10
   jumpingPower: 16
   jumpBuffer: 0.2
   CoyoteTime: 0.15
@@ -131,7 +131,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _SpR: {fileID: 4018927483592638827}
+  spriteRenderer: {fileID: 4018927483592638827}
   rb: {fileID: 371895544059257593}
 --- !u!212 &4018927483592638827
 SpriteRenderer:

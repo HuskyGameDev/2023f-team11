@@ -18,11 +18,12 @@ public class BlizzardMovement : MonoBehaviour
     [Header("Jumping")]
     public float jumpingPower = 16f; // jumping power of the player
     private bool jump;
+    [Tooltip("What is the timeframe from pressing jump to landing can you buffer a jump (seconds)?")]
     public float jumpBuffer = .2f;
     private bool bufferJumpUsable;
     private bool canBufferJump => bufferJumpUsable && time < lastJumpPressed + jumpBuffer;
 
-    [Tooltip("how long after leaving an edge can you jump?")]
+    [Tooltip("how long (seconds) after leaving an edge can you jump?")]
     public float CoyoteTime = .15f;
     private bool coyoteUsable; // can you jump after leaving solid ground?
     private bool canUseCoyote => coyoteUsable && !grounded && time < lastTimeOnGround + CoyoteTime; // are you able to use coyote time?
