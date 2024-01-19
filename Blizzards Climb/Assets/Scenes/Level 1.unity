@@ -1235,6 +1235,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -4, y: 29, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 7, y: 29, z: 0}
     second:
       serializedVersion: 2
@@ -2149,7 +2159,7 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 159
     m_Data: {fileID: 11400000, guid: e118f172e608b7647b7a6e75acfffbac, type: 2}
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 100799a61e579f94a9e9a301ebd9df13, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 9d10bd0070c34764f9f17cc5fd524aa5, type: 2}
@@ -2176,7 +2186,7 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 159
     m_Data: {fileID: 21300000, guid: 4229334f3affd924a837bf1ae2c91e1d, type: 3}
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {fileID: 21300000, guid: 662a1a67a3400f84ba4ee1bf57b29a94, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: d284f359f900b004aacb1ec1ebfcc356, type: 3}
@@ -2201,7 +2211,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 3169412c48ef6d04482e2ed92f259bc3, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 193
+  - m_RefCount: 194
     m_Data:
       e00: 1
       e01: 0
@@ -2220,7 +2230,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 193
+  - m_RefCount: 194
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -3696,12 +3706,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014df4001144c8e45a4c0ff7b21c4dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 1617109040}
+  speed: 150
+  jumpingPower: 15.225
+  player: {fileID: 1617109040}
   groundCheck: {fileID: 206698148}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  iceCheck: {fileID: 0}
   iceLayer:
     serializedVersion: 2
     m_Bits: 0
