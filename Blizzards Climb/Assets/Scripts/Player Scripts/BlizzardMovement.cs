@@ -9,10 +9,13 @@ public class BlizzardMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float speed = 8f; // speed of the player
+    [Tooltip("Deceleration takes place once the player stops giving horizontal inputs")]
     public float GroundDeceleration = 60;
     public float AirSpeed = 4f;
+    [Tooltip("Deceleration takes place once the player stops giving horizontal inputs")]
     public float AirDeceleration = 120;
-    private float horizontal; // player location of x axis
+
+    private float horizontalInput; // input from player on horizontal axis. -1 for left +1 for right.
 
 
     [Header("Jumping")]
@@ -48,6 +51,7 @@ public class BlizzardMovement : MonoBehaviour
     [SerializeField, Tooltip("If no renderer is set then it will search the gameobject attached to the script for a renderer.")]
     private SpriteRenderer spriteRenderer;
     //private bool facingRight = true; // determines if player if facing left or right
+    [SerializeField, Tooltip("If no Rigidbody2D is set then it will search the gameobject attached to the script for a Rigidbody2D.")]
     public Rigidbody2D rb; // player's rigid body
 
     // good for keeping track of how long it's been since something has happened or generally just to time buffers or jumps.
@@ -80,7 +84,7 @@ public class BlizzardMovement : MonoBehaviour
     private void GetInput()
     {
         // instantiates the horizontal by getting which direction the player is moving
-        horizontal = _PC.Movement.Horizontal.ReadValue<float>();
+        horizontalInput = _PC.Movement.Horizontal.ReadValue<float>();
 
         // check if player is trying to jump.
         if (_PC.Movement.Jump.WasPressedThisFrame())
@@ -136,13 +140,13 @@ public class BlizzardMovement : MonoBehaviour
     {
         // applies the speed and direction to the rigidbody of the player
         if (grounded)
-            rb.AddForce(Vector2.right * horizontal * speed, ForceMode2D.Force);
+            rb.AddForce(Vector2.right * horizontalInput * speed, ForceMode2D.Force);
         else // if you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
-            rb.AddForce(Vector2.right * horizontal * AirSpeed, ForceMode2D.Force);
+            rb.AddForce(Vector2.right * horizontalInput * AirSpeed, ForceMode2D.Force);
 
         // lets you maintain some acceleration while keeping controls snappy.
         var deceleration = grounded ? GroundDeceleration : AirDeceleration;
-        if (horizontal == 0) rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.fixedDeltaTime), rb.velocity.y);
+        if (horizontalInput == 0) rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.fixedDeltaTime), rb.velocity.y);
     }
 
     private void HandleJump()
@@ -150,6 +154,7 @@ public class BlizzardMovement : MonoBehaviour
         // if you don't have the ability to jump (either you haven't pressed the jump button yet or you don't have a buffer jump ready
         // just exit the function early.
         if (!jump && !canBufferJump) return;
+        //Debug.Log($"jump pressed? {jump} && canBufferJump? {canBufferJump}\nGrounded? {grounded} || canUseCoyote {canUseCoyote}"); // for some reason the player is able to jump a second time if they jump into a wall and press space bar again.
 
         // if you are grounded or can use the coyote jump then execute a jump.
         if (grounded || canUseCoyote) Jump();
@@ -218,7 +223,7 @@ public class BlizzardMovement : MonoBehaviour
         //}
 
         // if looking left flip to look left.
-        if (horizontal < 0) spriteRenderer.flipX = true;
+        if (horizontalInput < 0) spriteRenderer.flipX = true;
         // else just look forward normally.
         // if we want it to look the direction that was last moved just change to "else if (horizontal > 0) spriteRenderer.flipX = false;"
         else spriteRenderer.flipX = false;

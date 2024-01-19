@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  GroundDeceleration: 5
+  GroundDeceleration: 20
   AirSpeed: 6
-  AirDeceleration: 10
+  AirDeceleration: 40
   jumpingPower: 16
   jumpBuffer: 0.2
   CoyoteTime: 0.15
