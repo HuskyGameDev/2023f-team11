@@ -58,7 +58,7 @@ public class BlizzardMovement : MonoBehaviour
     private float time; // time since the controller has started.
 
     #region Player Controls (_PC)
-    private PlayerControls _PC; // use the new input system for player control so you can easily allow for interchange between arrow keys, wasd, or gamepad
+    private CustomInput _PC; // use the new input system for player control so you can easily allow for interchange between arrow keys, wasd, or gamepad
     private void OnEnable()
     {
         _PC.Enable();
@@ -72,7 +72,7 @@ public class BlizzardMovement : MonoBehaviour
     // Called when an enabled script instance is being loaded.
     private void Awake()
     {
-        _PC = new PlayerControls();
+        _PC = new CustomInput();
 
         if (!rb) // rigidbody is null
             rb = GetComponent<Rigidbody2D>(); // find something
@@ -84,10 +84,10 @@ public class BlizzardMovement : MonoBehaviour
     private void GetInput()
     {
         // instantiates the horizontal by getting which direction the player is moving
-        horizontalInput = _PC.Movement.Horizontal.ReadValue<float>();
+        horizontalInput = _PC.Player.Movement.ReadValue<Vector2>().x;
 
         // check if player is trying to jump.
-        if (_PC.Movement.Jump.WasPressedThisFrame())
+        if (_PC.Player.Jump.WasPressedThisFrame())
         {
             // now is the last time you pressed jump.
             lastJumpPressed = time;
