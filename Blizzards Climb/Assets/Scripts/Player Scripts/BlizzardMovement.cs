@@ -9,59 +9,59 @@ public class BlizzardMovement : MonoBehaviour
 {
     [Header("Gravity")]
     public float clampedFallSpeed = -25f;
-    private float _minGravity => _cachedGravity * .8f; // the minimum acceptable gravity is 80% of the cached gravity from Rigidbody Gravity Scale.
-    private float _cachedGravity; // caches the gravity from the Rigidbody Gravity scale
+    private float minGravity => cachedGravity * .8f; // the minimum acceptable gravity is 80% of the cached gravity from Rigidbody Gravity Scale.
+    private float cachedGravity; // caches the gravity from the Rigidbody Gravity scale
 
 
     [Header("Movement")]
     public float speed = 8f; // speed of the player
     [Tooltip("Deceleration takes place once the player stops giving horizontal inputs")]
-    public float GroundDeceleration = 60;
-    public float AirSpeed = 4f;
+    public float groundDeceleration = 60;
+    public float airSpeed = 4f;
     [Tooltip("Deceleration takes place once the player stops giving horizontal inputs")]
-    public float AirDeceleration = 120;
+    public float airDeceleration = 120;
 
 
-    private Vector2 _Input; // input from player on the horizontal (x) axis -1 for left +1 for right.
+    private Vector2 input; // input from player on the horizontal (x) axis -1 for left +1 for right.
 
 
     [Header("Jumping")]
     public float jumpingPower = 16f; // jumping power of the player
-    public float ApexBonus; // as you near the apex of your jump you should increase the horizontal speed of the player.
-    private bool _jump;
+    public float apexBonus; // as you near the apex of your jump you should increase the horizontal speed of the player.
+    private bool isJumping;
     [Tooltip("What is the timeframe from pressing jump to landing can you buffer a jump (seconds)?")]
     public float jumpBuffer = .2f;
-    private bool _bufferJumpUsable;
-    private bool _canBufferJump => _bufferJumpUsable && _time < _lastJumpPressed + jumpBuffer;
+    private bool bufferJumpUsable;
+    private bool canBufferJump => bufferJumpUsable && time < lastJumpPressed + jumpBuffer;
 
     [Tooltip("how long (seconds) after leaving an edge can you jump?")]
-    public float CoyoteTime = .15f;
-    private bool _coyoteUsable; // can you jump after leaving solid ground?
-    private bool _canUseCoyote => _coyoteUsable && !_grounded && _time < _lastTimeOnGround + CoyoteTime; // are you able to use coyote time?
+    public float coyoteTime = .15f;
+    private bool coyoteUsable; // can you jump after leaving solid ground?
+    private bool canUseCoyote => coyoteUsable && !grounded && time < lastTimeOnGround + coyoteTime; // are you able to use coyote time?
 
-    private float _lastJumpPressed;
+    private float lastJumpPressed;
 
 
     [Header("Ground Detection")]
-    [SerializeField] private Vector2 GPosLocal;
-    private Vector2 _GPosGlobal => (Vector2)transform.position + GPosLocal;
-    private bool _grounded;
-    [SerializeField] private Vector2 GPosSize;
+    [SerializeField] private Vector2 groundPositionLocal;
+    private Vector2 groundPosGlobal => (Vector2)transform.position + groundPositionLocal;
+    private bool grounded;
+    [SerializeField] private Vector2 groundPosSize;
     //[SerializeField] private float GroundCheckRadius;
     [SerializeField] private LayerMask groundLayer; // the gorund layer 
-    private float _lastTimeOnGround = float.MinValue; // when was the last time you touched the ground? 
+    private float lastTimeOnGround = float.MinValue; // when was the last time you touched the ground? 
 
 
     // edge detection reuses the ground layer when looking for an edge to climb.
     [Header("Edge Detection")]
-    [SerializeField] private Vector2 EPosLocal;
-    private Vector2 _EPosGlobal => (Vector2)transform.position + EPosLocal;
-    private RaycastHit2D _edgeHit;
-    [SerializeField] private float EdgeRayLength;
-    public float EdgeCorrectionPower = 4f;
-    public float EdgeGrabCooldown = .5f;
-    private float _lastEdgeGrab;
-    private bool canEdgeGrab => _edgeHit && _Input.x != 0 && _time - EdgeGrabCooldown > _lastEdgeGrab;
+    [SerializeField] private Vector2 edgePositionLocal;
+    private Vector2 edgePositionGlobal => (Vector2)transform.position + edgePositionLocal;
+    private RaycastHit2D edgeHit;
+    [SerializeField] private float edgeRayHit;
+    public float edgeCorrectionPower = 4f;
+    public float edgeGrabCooldown = .5f;
+    private float lastEdgeGrab;
+    private bool canEdgeGrab => edgeHit && input.x != 0 && time - edgeGrabCooldown > lastEdgeGrab;
 
 
     [Header("References")]
@@ -72,24 +72,24 @@ public class BlizzardMovement : MonoBehaviour
     public Rigidbody2D rb; // player's rigid body
 
     // good for keeping track of how long it's been since something has happened or generally just to time buffers or jumps.
-    private float _time; // time since the controller has started.
+    private float time; // time since the controller has started.
 
-    #region Player Controls (_PC)
-    private CustomInput _PC; // use the new input system for player control so you can easily allow for interchange between arrow keys, wasd, or gamepad
+    #region Player Controls (playerControls)
+    private CustomInput playerControls; // use the new input system for player control so you can easily allow for interchange between arrow keys, wasd, or gamepad
     private void OnEnable()
     {
-        _PC.Enable();
+        playerControls.Enable();
     }
     private void OnDisable()
     {
-        _PC.Disable();
+        playerControls.Disable();
     }
     #endregion
 
     // Called when an enabled script instance is being loaded.
     private void Awake()
     {
-        _PC = new CustomInput();
+        playerControls = new CustomInput();
 
 
         if (!rb) // rigidbody is null
@@ -98,22 +98,22 @@ public class BlizzardMovement : MonoBehaviour
         if (!spriteRenderer) // sprite renderer is null
             spriteRenderer = GetComponent<SpriteRenderer>(); // find something
 
-        _cachedGravity = rb.gravityScale;
+        cachedGravity = rb.gravityScale;
     }
 
     private void GetInput()
     {
         // instantiates the horizontal by getting which direction the player is moving
-        _Input = _PC.Player.Movement.ReadValue<Vector2>();
+        input = playerControls.Player.Movement.ReadValue<Vector2>();
 
         // check if player is trying to jump.
-        if (_PC.Player.Jump.WasPressedThisFrame())
+        if (playerControls.Player.Jump.WasPressedThisFrame())
         {
             //Debug.Log("Jump Pressed");
             // now is the last time you pressed jump.
-            _lastJumpPressed = _time;
+            lastJumpPressed = time;
             // you are trying to jump now.
-            _jump = true;
+            isJumping = true;
         }
         //else if (_PC.Player.Jump.WasReleasedThisFrame()) Debug.Log("Jump Released");
     }
@@ -135,7 +135,7 @@ public class BlizzardMovement : MonoBehaviour
         //    Time.timeScale = .2f;
         //}
 
-        _time += Time.deltaTime; // get the time before anything is done because we are on a new frame.
+        time += Time.deltaTime; // get the time before anything is done because we are on a new frame.
         GetInput();
 
         // flip the player after getting input.
@@ -158,46 +158,46 @@ public class BlizzardMovement : MonoBehaviour
     private void MovePlayer()
     {
         // applies the speed and direction to the rigidbody of the player
-        if (_grounded)
-            rb.AddForce(Vector2.right * _Input.x * speed, ForceMode2D.Force);
+        if (grounded)
+            rb.AddForce(Vector2.right * input.x * speed, ForceMode2D.Force);
         else // if you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
         {
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
-            var _apexBonus = ApexBonus * _apexPoint;
-            rb.AddForce(Vector2.right * _Input.x * (AirSpeed + _apexBonus), ForceMode2D.Force);
+            var _apexBonus = apexBonus * _apexPoint;
+            rb.AddForce(Vector2.right * input.x * (airSpeed + _apexBonus), ForceMode2D.Force);
         }
 
 
         // lets you maintain some acceleration while keeping controls snappy.
-        var deceleration = _grounded ? GroundDeceleration : AirDeceleration;
-        if (_Input.x == 0) rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.fixedDeltaTime), rb.velocity.y);
+        var deceleration = grounded ? groundDeceleration : airDeceleration;
+        if (input.x == 0) rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.fixedDeltaTime), rb.velocity.y);
     }
 
     private void HandleJump()
     {
         // if you don't have the ability to jump (either you haven't pressed the jump button yet or you don't have a buffer jump ready
         // just exit the function early.
-        if (!_jump && !_canBufferJump) return;
+        if (!isJumping && !canBufferJump) return;
         //Debug.Log($"jump pressed? {jump} && canBufferJump? {canBufferJump}\nGrounded? {grounded} || canUseCoyote {canUseCoyote}"); // for some reason the player is able to jump a second time if they jump into a wall and press space bar again.
 
         // if you are grounded or can use the coyote jump then execute a jump.
-        if (_grounded || _canUseCoyote) Jump();
+        if (grounded || canUseCoyote) Jump();
 
         // you no longer want to jump after jumping.
-        _jump = false;
+        isJumping = false;
     }
 
     private void HandleFalling()
     {
-        if (!_grounded && rb.velocity.y > 0)
+        if (!grounded && rb.velocity.y > 0)
         {
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
-            rb.gravityScale = Mathf.Lerp(_minGravity, _cachedGravity, _apexPoint);
+            rb.gravityScale = Mathf.Lerp(minGravity, cachedGravity, _apexPoint);
         }
         // only custom physics i'm going to do is clamping the fall speed of the player
         // we don't really want the player to have no control when falling (outside of maybe punishment for getting hit by an enemy?)
         // so clamp the speed at which the player falls giving them more time to react to the fall.
-        else if (!_grounded && rb.velocity.y < 0)
+        else if (!grounded && rb.velocity.y < 0)
         {
             //Debug.Log($"velocity: {rb.velocity}");
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, clampedFallSpeed, 0));
@@ -207,13 +207,13 @@ public class BlizzardMovement : MonoBehaviour
     private void Jump()
     {
         // you can no longer use coyote after jumping.
-        _coyoteUsable = false;
+        coyoteUsable = false;
 
         // can't buffer your jump while starting a jump.
-        _bufferJumpUsable = false;
+        bufferJumpUsable = false;
 
         // don't want to use an old jump time so reset
-        _lastJumpPressed = 0;
+        lastJumpPressed = 0;
 
         // reset the y velocity.
         rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -229,9 +229,9 @@ public class BlizzardMovement : MonoBehaviour
       // the ground layer, then the play can jump.
 
         // use a box cast to match the x dimension of the player bounding box to prevent player from getting stuck on edge of tilemap.
-        bool groundHit = Physics2D.BoxCast(_GPosGlobal, GPosSize, 0, Vector2.down, GPosSize.y, groundLayer);
+        bool groundHit = Physics2D.BoxCast(groundPosGlobal, groundPosSize, 0, Vector2.down, groundPosSize.y, groundLayer);
         // using a boxCast to check edges in the direction the player is moving to determine if the player can "climb" a ledge or not.
-        _edgeHit = Physics2D.Raycast(_EPosGlobal, Vector2.right * Mathf.Sign(_Input.x), EdgeRayLength, groundLayer);
+        edgeHit = Physics2D.Raycast(edgePositionGlobal, Vector2.right * Mathf.Sign(input.x), edgeRayHit, groundLayer);
 
 
         //Debug.Log($"has enough time passed to edge grab again? {_time - EdgeGrabCooldown > _lastEdgeGrab} because {_time - EdgeGrabCooldown} > {_lastEdgeGrab}\ncan player edgeGrab? {canEdgeGrab}");
@@ -240,22 +240,22 @@ public class BlizzardMovement : MonoBehaviour
             // reset y velocity
             rb.velocity = new Vector2(rb.velocity.x, 0);
             // nudge the player upwards so they can get on the edge.
-            rb.AddForce(Vector2.up * EdgeCorrectionPower, ForceMode2D.Impulse);
-            _lastEdgeGrab = _time;
+            rb.AddForce(Vector2.up * edgeCorrectionPower, ForceMode2D.Impulse);
+            lastEdgeGrab = time;
         }
 
         // if previous state was not on the ground but we detect ground
-        if (!_grounded && groundHit)
+        if (!grounded && groundHit)
         {
-            _grounded = true; // we are grounded ;)
-            _bufferJumpUsable = true; // we can buffer a jump again.
-            _coyoteUsable = true; // and we can use coyote jump again.
+            grounded = true; // we are grounded ;)
+            bufferJumpUsable = true; // we can buffer a jump again.
+            coyoteUsable = true; // and we can use coyote jump again.
         }
         // if we are previously grounded but no longer see ground
-        else if (_grounded && !groundHit)
+        else if (grounded && !groundHit)
         {
-            _grounded = false; // we are no longer grounded.
-            _lastTimeOnGround = _time; // and the last time we saw the ground was now.
+            grounded = false; // we are no longer grounded.
+            lastTimeOnGround = time; // and the last time we saw the ground was now.
         }
     }
 
@@ -263,7 +263,7 @@ public class BlizzardMovement : MonoBehaviour
     {
 
         // if looking left flip to look left.
-        if (_Input.x < 0) spriteRenderer.flipX = true;
+        if (input.x < 0) spriteRenderer.flipX = true;
         // else just look forward normally.
         // if we want it to look the direction that was last moved just change to "else if (horizontal > 0) spriteRenderer.flipX = false;"
         else spriteRenderer.flipX = false;
@@ -275,9 +275,9 @@ public class BlizzardMovement : MonoBehaviour
         // set the color so we can see the gizmo from the background.
         Gizmos.color = Color.red;
         // draw a cube to represent the ground position checker.
-        Gizmos.DrawWireCube(_GPosGlobal, GPosSize);
+        Gizmos.DrawWireCube(groundPosGlobal, groundPosSize);
         // draw a line to represent the edge grab raycast.
-        Gizmos.DrawLine(_EPosGlobal, _EPosGlobal + (Mathf.Sign(_Input.x) * Vector2.right) * EdgeRayLength);
+        Gizmos.DrawLine(edgePositionGlobal, edgePositionGlobal + (Mathf.Sign(input.x) * Vector2.right) * edgeRayHit);
     }
 
     /*private void OnCollisionEnter2D(Collision2D collider) {
