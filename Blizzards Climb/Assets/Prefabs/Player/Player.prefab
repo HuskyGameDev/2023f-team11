@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5726974826234235426}
   - component: {fileID: 4018927483592638827}
   m_Layer: 0
-  m_Name: Player
+  m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6634433257178546572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.86, y: -0.66, z: 0.8195709}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.24703124, y: 0.16242187, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -122,22 +122,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clampedFallSpeed: -19
   speed: 20
-  GroundDeceleration: 20
-  AirSpeed: 10
-  AirDeceleration: 40
+  groundDeceleration: 60
+  airSpeed: 4
+  airDeceleration: 120
   jumpingPower: 16
-  ApexBonus: 10
+  apexBonus: 10
   jumpBuffer: 0.2
-  CoyoteTime: 0.15
-  GPosLocal: {x: 0, y: -0.75}
-  GPosSize: {x: 1.12, y: 0.12}
+  coyoteTime: 0.15
+  groundPositionLocal: {x: 0, y: -0.75}
+  groundPosSize: {x: 1.12, y: 0.12}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  EPosLocal: {x: 0, y: -0.4}
-  EdgeRayLength: 1
-  EdgeCorrectionPower: 10
-  EdgeGrabCooldown: 1
+  edgePositionLocal: {x: 0, y: -0.4}
+  edgeRayHit: 1
+  edgeCorrectionPower: 10
+  edgeGrabCooldown: 1
   spriteRenderer: {fileID: 4018927483592638827}
   rb: {fileID: 371895544059257593}
 --- !u!212 &4018927483592638827
