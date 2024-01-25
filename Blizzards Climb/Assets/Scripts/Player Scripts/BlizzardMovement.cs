@@ -32,12 +32,12 @@ public class BlizzardMovement : MonoBehaviour
     [Tooltip("What is the timeframe from pressing jump to landing can you buffer a jump (seconds)?")]
     public float jumpBuffer = .2f;
     private bool bufferJumpUsable;
-    private bool canBufferJump => bufferJumpUsable && time < lastJumpPressed + jumpBuffer;
+    private bool canBufferJump => bufferJumpUsable && timeSinceFirstFrame < lastJumpPressed + jumpBuffer;
 
     [Tooltip("how long (seconds) after leaving an edge can you jump?")]
     public float coyoteTime = .15f;
     private bool coyoteUsable; // can you jump after leaving solid ground?
-    private bool canUseCoyote => coyoteUsable && !grounded && time < lastTimeOnGround + coyoteTime; // are you able to use coyote time?
+    private bool canUseCoyote => coyoteUsable && !grounded && timeSinceFirstFrame < lastTimeOnGround + coyoteTime; // are you able to use coyote time?
 
     private float lastJumpPressed;
 
@@ -61,7 +61,7 @@ public class BlizzardMovement : MonoBehaviour
     public float edgeCorrectionPower = 4f;
     public float edgeGrabCooldown = .5f;
     private float lastEdgeGrab;
-    private bool canEdgeGrab => edgeHit && input.x != 0 && time - edgeGrabCooldown > lastEdgeGrab;
+    private bool canEdgeGrab => edgeHit && input.x != 0 && timeSinceFirstFrame - edgeGrabCooldown > lastEdgeGrab;
 
 
     [Header("References")]
@@ -72,7 +72,7 @@ public class BlizzardMovement : MonoBehaviour
     public Rigidbody2D rb; // player's rigid body
 
     // good for keeping track of how long it's been since something has happened or generally just to time buffers or jumps.
-    private float time; // time since the controller has started.
+    private float timeSinceFirstFrame; // time since the controllers first frame.
 
     #region Player Controls (playerControls)
     private CustomInput playerControls; // use the new input system for player control so you can easily allow for interchange between arrow keys, wasd, or gamepad
@@ -111,7 +111,7 @@ public class BlizzardMovement : MonoBehaviour
         {
             //Debug.Log("Jump Pressed");
             // now is the last time you pressed jump.
-            lastJumpPressed = time;
+            lastJumpPressed = timeSinceFirstFrame;
             // you are trying to jump now.
             isJumping = true;
         }
@@ -135,7 +135,7 @@ public class BlizzardMovement : MonoBehaviour
         //    Time.timeScale = .2f;
         //}
 
-        time += Time.deltaTime; // get the time before anything is done because we are on a new frame.
+        timeSinceFirstFrame += Time.deltaTime; // get the time before anything is done because we are on a new frame.
         GetInput();
 
         // flip the player after getting input.
@@ -189,9 +189,12 @@ public class BlizzardMovement : MonoBehaviour
 
     private void HandleFalling()
     {
+        // if you are not grounded and your y velocity is positive
         if (!grounded && rb.velocity.y > 0)
         {
+            // get the apex point of your jump.
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
+            // change the gravity scale based on how close you are to the apex. (closer to apex means lesser gravity)
             rb.gravityScale = Mathf.Lerp(minGravity, cachedGravity, _apexPoint);
         }
         // only custom physics i'm going to do is clamping the fall speed of the player
@@ -241,7 +244,7 @@ public class BlizzardMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             // nudge the player upwards so they can get on the edge.
             rb.AddForce(Vector2.up * edgeCorrectionPower, ForceMode2D.Impulse);
-            lastEdgeGrab = time;
+            lastEdgeGrab = timeSinceFirstFrame;
         }
 
         // if previous state was not on the ground but we detect ground
@@ -255,7 +258,7 @@ public class BlizzardMovement : MonoBehaviour
         else if (grounded && !groundHit)
         {
             grounded = false; // we are no longer grounded.
-            lastTimeOnGround = time; // and the last time we saw the ground was now.
+            lastTimeOnGround = timeSinceFirstFrame; // and the last time we saw the ground was now.
         }
     }
 
