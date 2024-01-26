@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 /// <summary>
 /// much inspiration comes from tarodevs video on 2D platformer controller but instead of using custom physics it just uses rigidbody2D <br/>
@@ -8,13 +9,13 @@ using UnityEngine;
 public class BlizzardMovement : MonoBehaviour
 {
     [Header("Gravity")]
-    public float clampedFallSpeed = -25f;
+    public float clampedFallSpeed = -19f;
     private float minGravity => cachedGravity * .8f; // the minimum acceptable gravity is 80% of the cached gravity from Rigidbody Gravity Scale.
     private float cachedGravity; // caches the gravity from the Rigidbody Gravity scale
 
 
     [Header("Movement")]
-    public float speed = 8f; // speed of the player
+    public float speed = 20f; // speed of the player
     [Tooltip("Deceleration takes place once the player stops giving horizontal inputs")]
     public float groundDeceleration = 60;
     public float airSpeed = 4f;
@@ -27,7 +28,7 @@ public class BlizzardMovement : MonoBehaviour
 
     [Header("Jumping")]
     public float jumpingPower = 16f; // jumping power of the player
-    public float apexBonus; // as you near the apex of your jump you should increase the horizontal speed of the player.
+    public float apexBonus = 10; // as you near the apex of your jump you should increase the horizontal speed of the player.
     private bool isJumping;
     [Tooltip("What is the timeframe from pressing jump to landing can you buffer a jump (seconds)?")]
     public float jumpBuffer = .2f;
@@ -43,23 +44,28 @@ public class BlizzardMovement : MonoBehaviour
 
 
     [Header("Ground Detection")]
-    [SerializeField] private Vector2 groundPositionLocal;
+    [SerializeField] private Vector2 groundPositionLocal = new Vector2(0, -.75f);
     private Vector2 groundPosGlobal => (Vector2)transform.position + groundPositionLocal;
     private bool grounded;
-    [SerializeField] private Vector2 groundPosSize;
+    private RaycastHit2D groundHit;
+    [SerializeField] private Vector2 groundPosSize = new Vector2(1.12f, .12f);
     //[SerializeField] private float GroundCheckRadius;
     [SerializeField] private LayerMask groundLayer; // the gorund layer 
     private float lastTimeOnGround = float.MinValue; // when was the last time you touched the ground? 
 
 
+    [Header("Slope Detection")]
+    public float maxSlopeAngle = 75f;
+
+
     // edge detection reuses the ground layer when looking for an edge to climb.
     [Header("Edge Detection")]
-    [SerializeField] private Vector2 edgePositionLocal;
+    [SerializeField] private Vector2 edgePositionLocal = new Vector2(0, -4f);
     private Vector2 edgePositionGlobal => (Vector2)transform.position + edgePositionLocal;
     private RaycastHit2D edgeHit;
-    [SerializeField] private float edgeRayHit;
-    public float edgeCorrectionPower = 4f;
-    public float edgeGrabCooldown = .5f;
+    [SerializeField] private float edgeRayHit = 10;
+    public float edgeCorrectionPower = 10f;
+    public float edgeGrabCooldown = 1f;
     private float lastEdgeGrab;
     private bool canEdgeGrab => edgeHit && input.x != 0 && timeSinceFirstFrame - edgeGrabCooldown > lastEdgeGrab;
 
@@ -158,9 +164,11 @@ public class BlizzardMovement : MonoBehaviour
     private void MovePlayer()
     {
         // applies the speed and direction to the rigidbody of the player
-        if (grounded)
+        if (grounded && !onSlope())
             rb.AddForce(Vector2.right * input.x * speed, ForceMode2D.Force);
-        else // if you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
+        else if (grounded && onSlope()) // else if you are on a slope and grounded move the rigidbody in the direction of slope.
+            rb.AddForce(GetSlopeDirection(input) * speed * 1.5f, ForceMode2D.Force);
+        else // else you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
         {
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
             var _apexBonus = apexBonus * _apexPoint;
@@ -226,16 +234,31 @@ public class BlizzardMovement : MonoBehaviour
         //Debug.Log("Jumped!");
     }
 
+    private Vector2 GetSlopeDirection(Vector2 direction)
+    {
+        // little bit of using 3d to remap to 2d.
+        // basically just trying to project onto the plane that the slope makes from our directional inputs.
+        // helps give the player a little push uphill
+        return Vector3.ProjectOnPlane(direction, groundHit.normal).normalized;
+    }
+
+    private bool onSlope()
+    {
+        // calculate the angle between the normal from the ground and the up direction.
+        var angle = Vector2.Angle(Vector2.up, groundHit.normal);
+        // if the angle is less than an acceptable slope angle and not 0 then we are on a valid slope.
+        return angle < maxSlopeAngle && angle != 0;
+    }
+
     private void checkCollision()
     { // checks to see if the player is standing on the ground by creating
       // an invisible circle at the players feet. When this circle touches
       // the ground layer, then the play can jump.
 
         // use a box cast to match the x dimension of the player bounding box to prevent player from getting stuck on edge of tilemap.
-        bool groundHit = Physics2D.BoxCast(groundPosGlobal, groundPosSize, 0, Vector2.down, groundPosSize.y, groundLayer);
-        // using a boxCast to check edges in the direction the player is moving to determine if the player can "climb" a ledge or not.
+        groundHit = Physics2D.BoxCast(groundPosGlobal, groundPosSize, 0, Vector2.down, groundPosSize.y, groundLayer);
+        // using a raycast to check edges in the direction the player is moving to determine if the player can "climb" a ledge or not.
         edgeHit = Physics2D.Raycast(edgePositionGlobal, Vector2.right * Mathf.Sign(input.x), edgeRayHit, groundLayer);
-
 
         //Debug.Log($"has enough time passed to edge grab again? {_time - EdgeGrabCooldown > _lastEdgeGrab} because {_time - EdgeGrabCooldown} > {_lastEdgeGrab}\ncan player edgeGrab? {canEdgeGrab}");
         if (canEdgeGrab)
@@ -280,14 +303,8 @@ public class BlizzardMovement : MonoBehaviour
         // draw a cube to represent the ground position checker.
         Gizmos.DrawWireCube(groundPosGlobal, groundPosSize);
         // draw a line to represent the edge grab raycast.
+        Gizmos.color = Color.green;
         Gizmos.DrawLine(edgePositionGlobal, edgePositionGlobal + (Mathf.Sign(input.x) * Vector2.right) * edgeRayHit);
     }
-
-    /*private void OnCollisionEnter2D(Collision2D collider) {
-         Debug.Log("Collision.");
-         if (collider.gameObject.tag == "Enemy") {
-             // Do damage
-         }
-    }*/
 }
 

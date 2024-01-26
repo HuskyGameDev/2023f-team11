@@ -226,6 +226,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+--- !u!4 &222589205 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6198590983476731263, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+  m_PrefabInstance: {fileID: 222589204}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &225320543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a67d1a1f2a37a441be8661d9a71c80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: {fileID: 0}
+  playerTarget: {fileID: 222589205}
   backgroundTarget: {fileID: 920779384}
   cameraObject: {fileID: 1996901560}
   background: {fileID: 920779382}

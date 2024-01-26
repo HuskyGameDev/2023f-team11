@@ -8106,11 +8106,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6198590983476731263, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.86
+      value: -4.7
       objectReference: {fileID: 0}
     - target: {fileID: 6198590983476731263, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.66
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 6198590983476731263, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8153,6 +8153,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+--- !u!4 &664414118 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6198590983476731263, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+  m_PrefabInstance: {fileID: 664414117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1145072592
 GameObject:
   m_ObjectHideFlags: 0
@@ -8401,7 +8406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a67d1a1f2a37a441be8661d9a71c80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: {fileID: 0}
+  playerTarget: {fileID: 664414118}
   backgroundTarget: {fileID: 1906768738}
   cameraObject: {fileID: 1179600415}
   background: {fileID: 1906768736}
