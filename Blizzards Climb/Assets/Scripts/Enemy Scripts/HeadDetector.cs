@@ -14,6 +14,10 @@ public class HeadDetector : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(Enemy);
+        if (collision.gameObject.TryGetComponent<BlizzardMovement>(out var bliz)) // did the player cause the collision?
+        {
+            bliz.rb.AddForce(Vector2.up * bliz.jumpingPower, ForceMode2D.Impulse); // add some feedback to killing an enemy
+        }
+        Destroy(Enemy); // clean up enemy
     }
 }

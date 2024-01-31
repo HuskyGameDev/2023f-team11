@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour
 
     void Start()
     {
-        background.transform.SetParent(cameraObject);
+        background?.transform.SetParent(cameraObject);
     }
 
     void FixedUpdate()
