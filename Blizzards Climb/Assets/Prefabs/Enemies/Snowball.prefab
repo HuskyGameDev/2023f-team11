@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -3064654405778194091}
   - component: {fileID: 6674093766894804630}
   - component: {fileID: -7865916240149109571}
+  - component: {fileID: 1080510801031281584}
   m_Layer: 0
   m_Name: Snowball
   m_TagString: Enemy
@@ -148,3 +149,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.23
+--- !u!114 &1080510801031281584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930418258021469811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df7492dd53a8bb47bbf0770b206646a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
