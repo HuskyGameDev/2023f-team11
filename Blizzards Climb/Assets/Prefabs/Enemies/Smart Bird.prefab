@@ -266,6 +266,9 @@ MonoBehaviour:
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
   speed: 2
+  dropSnowballInterval: 5
+  snowballPrefab: {fileID: 2930418258021469811, guid: 9cc6f872d419b3940be1603ff1a7b77e, type: 3}
+  snowballDropSpeed: 10
 --- !u!95 &7210823766077273263
 Animator:
   serializedVersion: 5
