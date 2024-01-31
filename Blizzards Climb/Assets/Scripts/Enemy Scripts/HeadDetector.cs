@@ -16,6 +16,7 @@ public class HeadDetector : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<BlizzardMovement>(out var bliz)) // did the player cause the collision?
         {
+            //collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(-1);
             bliz.rb.AddForce(Vector2.up * bliz.jumpingPower, ForceMode2D.Impulse); // add some feedback to killing an enemy
         }
         Destroy(Enemy); // clean up enemy
