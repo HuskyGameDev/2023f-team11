@@ -11,12 +11,19 @@ public class SmartBirdAI : MonoBehaviour
     private Transform currentPoint; // The point in which the bird will move towards.
     public float speed; // The speed at which the Bird will move.
 
+
+    [SerializeField] private float dropSnowballInterval = 5f;
+    [SerializeField] public GameObject snowballPrefab;
+    [SerializeField] private float snowballDropSpeed = 10f;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // Sets rb to the Bird's rigidbody in Unity.
         anim = GetComponent<Animator>(); // Sets anim to the Bird's Animator in Unity.
         currentPoint = startPoint.transform; // Sets currentPoint to startPoint for initial starting position.
+
+        // Use a coroutine for snowballs
+        StartCoroutine(DropSnowballRoutine());
     }
 
     // Update is called once per frame
@@ -44,7 +51,39 @@ public class SmartBirdAI : MonoBehaviour
         { // This will change the point destination of the Bird once it reaches the ending point.
             currentPoint = startPoint.transform;
             transform.localScale = new Vector3(-1f, .5f, 1f); // This flips the sprite.
+        } 
+    }
+
+    //Coroutine for dropping snowballs
+    // Using a Coroutine allows the script to do somethign simultaneously
+    private IEnumerator DropSnowballRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(dropSnowballInterval);
+            DropSnowball();
         }
+
+    }
+
+    // Method for dropping snowball
+
+    private void DropSnowball()
+    {
+        // Create an instance of the snowball at the birds position
+        Vector2 spawnBelowBird = new Vector2(transform.position.x, transform.position.y - .5f);
+        GameObject newSnowball = Instantiate(snowballPrefab, spawnBelowBird, Quaternion.identity);
+        // Grab the rigidbody for the newSnowball
+        Rigidbody2D snowballRB = newSnowball.GetComponent<Rigidbody2D>();
+        // Check if it has a rigidbody, if so drop the snowball with the given snowBallDropSpeed
+        if(snowballRB != null )
+        {
+            snowballRB.velocity = new Vector2(snowballRB.velocity.x, snowballDropSpeed * Time.deltaTime);
+        }else
+        {
+            Debug.LogError("Rigidbody2D not found for the snowball");
+        }
+
     }
 
     // A method that makes the patrolling points easier to see in Unity.

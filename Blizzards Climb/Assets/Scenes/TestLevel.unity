@@ -8292,6 +8292,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2531366371033951108, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 43.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531366371033951108, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 73.60532
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531366371033951108, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 43.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531366371033951108, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 73.60532
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018927483592638827, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_Size.x
+      value: 43.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018927483592638827, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_Size.y
+      value: 73.60532
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018927483592638827, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 646d415c9cacd1c41b0a643c52062a0d, type: 3}
+    - target: {fileID: 4018927483592638827, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5726974826234235426, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
       propertyPath: clampedFallSpeed
       value: -19
@@ -9701,6 +9733,10 @@ PrefabInstance:
       propertyPath: startPoint
       value: 
       objectReference: {fileID: 419173033}
+    - target: {fileID: 1725940592177346367, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
+      propertyPath: dropSnowballInterval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4616076810526981168, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
       propertyPath: m_Name
       value: Smart Bird

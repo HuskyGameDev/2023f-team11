@@ -6,6 +6,7 @@ public class EnemyDamage : MonoBehaviour
 {
     public PlayerHealth playerHealth;
     public int damage = 1;
+    public bool destroyOnEvent = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +24,21 @@ public class EnemyDamage : MonoBehaviour
         if (collision.gameObject.tag == "Player") {
             playerHealth.TakeDamage(damage);
         }
+        if (destroyOnEvent == true)
+        {
+            // Destroy(collision.gameObject);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.gameObject.tag == "Player") {
             playerHealth.TakeDamage(damage);
         }
+        if (destroyOnEvent == true)
+        {
+            // Destroy(collider.gameObject);
+        }
+
     }
 }
