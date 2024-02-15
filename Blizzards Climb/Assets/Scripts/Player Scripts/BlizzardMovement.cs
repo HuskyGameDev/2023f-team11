@@ -13,6 +13,7 @@ public class BlizzardMovement : MonoBehaviour
     private float minGravity => cachedGravity * .8f; // the minimum acceptable gravity is 80% of the cached gravity from Rigidbody Gravity Scale.
     private float cachedGravity; // caches the gravity from the Rigidbody Gravity scale
 
+    public Animator animator;//changes to animations for blizzard are controlled by this
 
     [Header("Movement")]
     public float speed = 20f; // speed of the player
@@ -179,6 +180,13 @@ public class BlizzardMovement : MonoBehaviour
         // lets you maintain some acceleration while keeping controls snappy.
         var deceleration = grounded ? groundDeceleration : airDeceleration;
         if (input.x == 0) rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.fixedDeltaTime), rb.velocity.y);
+
+        if (rb.velocity.x > 0 || rb.velocity.x < 0){
+            animator.SetBool("Moving", true);
+        }
+        else {
+            animator.SetBool("Moving", false);
+        }
     }
 
     private void HandleJump()
@@ -232,6 +240,8 @@ public class BlizzardMovement : MonoBehaviour
         // add the jump force to the player
         rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
         //Debug.Log("Jumped!");
+
+        animator.SetTrigger("Jump");
     }
 
     private Vector2 GetSlopeDirection(Vector2 direction)
