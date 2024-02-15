@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: PineTree
+  m_Name: Cafe Melt Sprite Up
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 64e98f5e71a63b24aa7779afda3a0590, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 186c422f7e670414ba6a8a2ece90e93a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
