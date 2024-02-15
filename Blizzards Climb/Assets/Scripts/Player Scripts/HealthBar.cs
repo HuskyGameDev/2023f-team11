@@ -13,7 +13,7 @@ public class HealthBar : MonoBehaviour
     }
 
     void Update () {
-        healthBar.value = playerHealth.currentHealth;
+        healthBar.value = playerHealth.health;
     }
     
 }
