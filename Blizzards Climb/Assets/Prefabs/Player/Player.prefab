@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5726974826234235426}
   - component: {fileID: 4018927483592638827}
   - component: {fileID: 4773319354166270898}
-  - component: {fileID: 1270075141542339813}
+  - component: {fileID: 5566786759288885742}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampedFallSpeed: -19
-  animator: {fileID: 1270075141542339813}
   speed: 20
   groundDeceleration: 60
   airSpeed: 4
@@ -138,12 +137,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSlopeAngle: 75
-  edgePositionLocal: {x: 0, y: -0.65}
-  edgeRayHit: 0.7
+  edgePositionLocal: {x: 0, y: 0}
+  edgeRayHit: 0
   edgeCorrectionPower: 8
   edgeGrabCooldown: 1
   spriteRenderer: {fileID: 4018927483592638827}
   rb: {fileID: 371895544059257593}
+  animator: {fileID: 5566786759288885742}
 --- !u!212 &4018927483592638827
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -208,9 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3aff021db058a46975fe6656b8caba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  health: 0
   maxHealth: 10
---- !u!95 &1270075141542339813
+--- !u!95 &5566786759288885742
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
