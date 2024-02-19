@@ -128,7 +128,7 @@ MonoBehaviour:
   airSpeed: 4
   airDeceleration: 60
   jumpingPower: 16
-  apexBonus: 10
+  apexBonus: 5
   jumpBuffer: 0.2
   coyoteTime: 0.15
   groundPositionLocal: {x: 0, y: -0.9}
