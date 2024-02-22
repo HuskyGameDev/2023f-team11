@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5726974826234235426}
   - component: {fileID: 4018927483592638827}
   - component: {fileID: 4773319354166270898}
-  m_Layer: 0
+  - component: {fileID: 5124743514075001344}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -73,8 +74,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.4, y: 9.2}
-    newSize: {x: 5.4, y: 9.2}
+    oldSize: {x: 7.854545, y: 13.382785}
+    newSize: {x: 7.854545, y: 13.382785}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampedFallSpeed: -19
+  animator: {fileID: 5124743514075001344}
   speed: 20
   groundDeceleration: 60
   airSpeed: 4
@@ -183,12 +185,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e1b5a17220591f44789802806038f496, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 646d415c9cacd1c41b0a643c52062a0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.4, y: 9.2}
+  m_Size: {x: 7.854545, y: 13.382785}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -208,6 +210,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   maxHealth: 10
+--- !u!95 &5124743514075001344
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634433257178546572}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 043ced552419af944abf7bcc693f05d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8935664615516111269
 GameObject:
   m_ObjectHideFlags: 0

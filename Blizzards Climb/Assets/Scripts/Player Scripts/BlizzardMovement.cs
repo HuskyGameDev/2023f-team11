@@ -70,6 +70,9 @@ public class BlizzardMovement : MonoBehaviour
     private float lastEdgeGrab;
     private bool canEdgeGrab => edgeHit && input.x != 0 && timeSinceFirstFrame - edgeGrabCooldown > lastEdgeGrab;
 
+    [Header("Collision")]
+    //force applied when running into a hazard
+    [SerializeField] private float bounceForce = 10f;
 
     [Header("References")]
     [SerializeField, Tooltip("If no renderer is set then it will search the gameobject attached to the script for a renderer.")]
@@ -116,7 +119,7 @@ public class BlizzardMovement : MonoBehaviour
         // check if player is trying to jump.
         if (playerControls.Player.Jump.WasPressedThisFrame())
         {
-            Debug.Log("Jump Pressed");
+            //Debug.Log("Jump Pressed");
             // now is the last time you pressed jump.
             lastJumpPressed = timeSinceFirstFrame;
             // you are trying to jump now.
@@ -176,7 +179,7 @@ public class BlizzardMovement : MonoBehaviour
             rb.AddForce(Vector2.right * input.x * (airSpeed + _apexBonus), ForceMode2D.Force);
         }
 
-        Debug.Log($"{input}");
+        //Debug.Log($"{input}");
 
         // lets you maintain some acceleration while keeping controls snappy.
         var deceleration = grounded ? groundDeceleration : airDeceleration;
@@ -284,7 +287,7 @@ public class BlizzardMovement : MonoBehaviour
         // if previous state was not on the ground but we detect ground
         if (!grounded && groundHit)
         {
-            Debug.Log("grounded");
+            //Debug.Log("grounded");
             grounded = true; // we are grounded ;)
             bufferJumpUsable = true; // we can buffer a jump again.
             coyoteUsable = true; // and we can use coyote jump again.
@@ -292,12 +295,20 @@ public class BlizzardMovement : MonoBehaviour
         // if we are previously grounded but no longer see ground
         else if (grounded && !groundHit)
         {
-            Debug.Log("ungrounded");
+            //Debug.Log("ungrounded");
             grounded = false; // we are no longer grounded.
             lastTimeOnGround = timeSinceFirstFrame; // and the last time we saw the ground was now.
         }
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Hazard")
+        {
+            Vector2 bounceDirection = new Vector2(-transform.localScale.x, 1).normalized;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(bounceDirection  * bounceForce, ForceMode2D.Impulse);
+        }
+    }
     private void Flip()
     {
 
