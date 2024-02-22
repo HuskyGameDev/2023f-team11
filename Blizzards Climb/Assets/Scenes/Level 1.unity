@@ -8143,6 +8143,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 664414120}
+    - target: {fileID: 5726974826234235426, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: jumpingPower
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 6198590983476731263, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.7
@@ -10741,6 +10745,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 8, y: 7, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 10
+      m_TileSpriteIndex: 10
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -10, y: 8, z: 0}
     second:
       serializedVersion: 2
@@ -11933,6 +11947,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 4ec21980dd31a86409aae94715affcef, type: 2}
   - m_RefCount: 10
     m_Data: {fileID: 11400000, guid: d7fff6a60d4dfa549b6c1ccb85ffecd7, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 06b8c5005f06dd7459ccf5a8a7362832, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 20
     m_Data: {fileID: 21300000, guid: 981f9f0ab591c9e48bc4f930f418aaf4, type: 3}
@@ -11954,8 +11970,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 0b7178c29199fe84a815c0882da7f430, type: 3}
   - m_RefCount: 10
     m_Data: {fileID: 21300000, guid: 2ab6efd46a4c6834eb0cbbb23fdeb70b, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: d1d4b31ee6efb9b4aa99dd358f50185a, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 151
+  - m_RefCount: 152
     m_Data:
       e00: 1
       e01: 0
@@ -11974,7 +11992,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 151
+  - m_RefCount: 152
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -12089,6 +12107,30 @@ CompositeCollider2D:
         Y: 366100000
       - X: 88600000
         Y: 366100000
+      - X: 88600000
+        Y: 43900000
+      - X: 78600000
+        Y: 43900000
+      - X: 78600000
+        Y: 35700000
+      - X: 80900000
+        Y: 33200000
+      - X: 83600000
+        Y: 33000000
+      - X: 84000000
+        Y: 33000000
+      - X: 85000000
+        Y: 33300000
+      - X: 85200008
+        Y: 33500000
+      - X: 84799992
+        Y: 32700000
+      - X: 84700000
+        Y: 31700000
+      - X: 88500000
+        Y: 31700000
+      - X: 88600000
+        Y: 31800000
       - X: 88600000
         Y: -21100002
     - - X: 1100000
@@ -12665,6 +12707,14 @@ CompositeCollider2D:
         Y: 61100000
       - X: 40800000
         Y: 61100000
+    - - X: 82900000
+        Y: 35400000
+      - X: 82900000
+        Y: 35600000
+      - X: 83100008
+        Y: 35600000
+      - X: 83100008
+        Y: 35400000
     - - X: 46000000
         Y: 7700000
       - X: 46700000
@@ -12725,6 +12775,18 @@ CompositeCollider2D:
       - {x: -8.86, y: -2.1099708}
       - {x: -8.85997, y: 36.61}
       - {x: 8.86, y: 36.60997}
+      - {x: 8.85997, y: 4.39}
+      - {x: 7.86, y: 4.389971}
+      - {x: 7.8600063, y: 3.5699928}
+      - {x: 8.090011, y: 3.3199992}
+      - {x: 8.360001, y: 3.3}
+      - {x: 8.400003, y: 3.3000011}
+      - {x: 8.500005, y: 3.3300047}
+      - {x: 8.519881, y: 3.3497624}
+      - {x: 8.479999, y: 3.2699957}
+      - {x: 8.470033, y: 3.17}
+      - {x: 8.850008, y: 3.1700077}
+      - {x: 8.86, y: 3.1799126}
     - - {x: 0.0799793, y: 28.11}
       - {x: 0.1099935, y: 28.21001}
       - {x: -0.0500005, y: 28.460007}
@@ -13012,6 +13074,10 @@ CompositeCollider2D:
       - {x: 3.3099897, y: 6.629969}
       - {x: 3.16, y: 6.189996}
       - {x: 3.1600292, y: 6.11}
+    - - {x: 8.310001, y: 3.5400295}
+      - {x: 8.29, y: 3.5400295}
+      - {x: 8.29003, y: 3.56}
+      - {x: 8.310001, y: 3.5599704}
     - - {x: 4.439989, y: 0.61}
       - {x: 4.600002, y: 0.77000123}
       - {x: 4.6700015, y: 0.8200016}
