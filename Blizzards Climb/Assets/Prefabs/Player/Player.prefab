@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5726974826234235426}
   - component: {fileID: 4018927483592638827}
   - component: {fileID: 4773319354166270898}
-  - component: {fileID: 5566786759288885742}
+  - component: {fileID: 7792624072033422444}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -127,7 +127,7 @@ MonoBehaviour:
   groundDeceleration: 60
   airSpeed: 4
   airDeceleration: 60
-  jumpingPower: 16
+  jumpingPower: 20
   apexBonus: 5
   jumpBuffer: 0.2
   coyoteTime: 0.15
@@ -143,7 +143,7 @@ MonoBehaviour:
   edgeGrabCooldown: 1
   spriteRenderer: {fileID: 4018927483592638827}
   rb: {fileID: 371895544059257593}
-  animator: {fileID: 5566786759288885742}
+  animator: {fileID: 7792624072033422444}
 --- !u!212 &4018927483592638827
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 10
---- !u!95 &5566786759288885742
+--- !u!95 &7792624072033422444
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
