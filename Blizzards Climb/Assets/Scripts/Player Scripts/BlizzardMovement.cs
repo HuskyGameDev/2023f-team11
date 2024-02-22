@@ -1,11 +1,10 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 /// <summary>
 /// much inspiration comes from tarodevs video on 2D platformer controller but instead of using custom physics it just uses rigidbody2D <br/>
 /// https://www.youtube.com/watch?v=3sWTzMsmdx8
 /// </summary>
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(Animator))]
 public class BlizzardMovement : MonoBehaviour
 {
     [Header("Gravity")]
@@ -13,7 +12,6 @@ public class BlizzardMovement : MonoBehaviour
     private float minGravity => cachedGravity * .8f; // the minimum acceptable gravity is 80% of the cached gravity from Rigidbody Gravity Scale.
     private float cachedGravity; // caches the gravity from the Rigidbody Gravity scale
 
-    public Animator animator;//changes to animations for blizzard are controlled by this
 
     [Header("Movement")]
     public float speed = 20f; // speed of the player
@@ -70,9 +68,6 @@ public class BlizzardMovement : MonoBehaviour
     private float lastEdgeGrab;
     private bool canEdgeGrab => edgeHit && input.x != 0 && timeSinceFirstFrame - edgeGrabCooldown > lastEdgeGrab;
 
-    [Header("Collision")]
-    //force applied when running into a hazard
-    [SerializeField] private float bounceForce = 10f;
 
     [Header("References")]
     [SerializeField, Tooltip("If no renderer is set then it will search the gameobject attached to the script for a renderer.")]
@@ -80,6 +75,8 @@ public class BlizzardMovement : MonoBehaviour
     //private bool facingRight = true; // determines if player if facing left or right
     [SerializeField, Tooltip("If no Rigidbody2D is set then it will search the gameobject attached to the script for a Rigidbody2D.")]
     public Rigidbody2D rb; // player's rigid body
+    public Animator animator;//changes to animations for blizzard are controlled by this
+
 
     // good for keeping track of how long it's been since something has happened or generally just to time buffers or jumps.
     private float timeSinceFirstFrame; // time since the controllers first frame.
@@ -103,10 +100,13 @@ public class BlizzardMovement : MonoBehaviour
 
 
         if (!rb) // rigidbody is null
-            rb = GetComponent<Rigidbody2D>(); // find something
+            rb = GetComponent<Rigidbody2D>();
 
         if (!spriteRenderer) // sprite renderer is null
-            spriteRenderer = GetComponent<SpriteRenderer>(); // find something
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (!animator) // rigidbody is null
+            animator = GetComponent<Animator>();
 
         cachedGravity = rb.gravityScale;
     }
@@ -119,7 +119,6 @@ public class BlizzardMovement : MonoBehaviour
         // check if player is trying to jump.
         if (playerControls.Player.Jump.WasPressedThisFrame())
         {
-            //Debug.Log("Jump Pressed");
             // now is the last time you pressed jump.
             lastJumpPressed = timeSinceFirstFrame;
             // you are trying to jump now.
@@ -169,9 +168,11 @@ public class BlizzardMovement : MonoBehaviour
     {
         // applies the speed and direction to the rigidbody of the player
         if (grounded && !onSlope())
-            rb.AddForce(Vector2.right * input.x * speed, ForceMode2D.Force);
-        else if (grounded && onSlope()) // else if you are on a slope and grounded move the rigidbody in the direction of slope.
-            rb.AddForce(GetSlopeDirection(input) * speed * 1.5f, ForceMode2D.Force);
+            //rb.AddForce(Vector2.right * input.x * speed/2, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(input.x * speed * Time.fixedDeltaTime, rb.velocity.y-.5f);
+        //else if (grounded && onSlope()) // else if you are on a slope and grounded move the rigidbody in the direction of slope.
+            //rb.AddForce(GetSlopeDirection(input) * speed, ForceMode2D.Impulse);
+            //rb.velocity = GetSlopeDirection(input)*speed * Time.fixedDeltaTime;
         else // else you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
         {
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
@@ -179,16 +180,16 @@ public class BlizzardMovement : MonoBehaviour
             rb.AddForce(Vector2.right * input.x * (airSpeed + _apexBonus), ForceMode2D.Force);
         }
 
-        //Debug.Log($"{input}");
-
         // lets you maintain some acceleration while keeping controls snappy.
         var deceleration = grounded ? groundDeceleration : airDeceleration;
         if (input.x == 0) rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.fixedDeltaTime), rb.velocity.y);
 
-        if (rb.velocity.x > 0 || rb.velocity.x < 0){
+        if (rb.velocity.x > 0 || rb.velocity.x < 0)
+        {
             animator.SetBool("Moving", true);
         }
-        else {
+        else
+        {
             animator.SetBool("Moving", false);
         }
     }
@@ -198,7 +199,6 @@ public class BlizzardMovement : MonoBehaviour
         // if you don't have the ability to jump (either you haven't pressed the jump button yet or you don't have a buffer jump ready
         // just exit the function early.
         if (!isJumping && !canBufferJump) return;
-        //Debug.Log($"jump pressed? {jump} && canBufferJump? {canBufferJump}\nGrounded? {grounded} || canUseCoyote {canUseCoyote}"); // for some reason the player is able to jump a second time if they jump into a wall and press space bar again.
 
         // if you are grounded or can use the coyote jump then execute a jump.
         if (grounded || canUseCoyote) Jump();
@@ -222,7 +222,6 @@ public class BlizzardMovement : MonoBehaviour
         // so clamp the speed at which the player falls giving them more time to react to the fall.
         else if (!grounded && rb.velocity.y < 0)
         {
-            //Debug.Log($"velocity: {rb.velocity}");
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, clampedFallSpeed, 0));
         }
     }
@@ -243,7 +242,6 @@ public class BlizzardMovement : MonoBehaviour
 
         // add the jump force to the player
         rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
-        //Debug.Log("Jumped!");
 
         animator.SetTrigger("Jump");
     }
@@ -274,8 +272,9 @@ public class BlizzardMovement : MonoBehaviour
         // using a raycast to check edges in the direction the player is moving to determine if the player can "climb" a ledge or not.
         edgeHit = Physics2D.Raycast(edgePositionGlobal, Vector2.right * Mathf.Sign(input.x), edgeRayHit, groundLayer);
 
-        //Debug.Log($"has enough time passed to edge grab again? {_time - EdgeGrabCooldown > _lastEdgeGrab} because {_time - EdgeGrabCooldown} > {_lastEdgeGrab}\ncan player edgeGrab? {canEdgeGrab}");
-        if (canEdgeGrab)
+        // has enough time passed to edge grab again and is there an available platform to grab?
+        // and is the player still trying to go up?
+        if (canEdgeGrab && rb.velocity.y >= 0)
         {
             // reset y velocity
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -287,7 +286,6 @@ public class BlizzardMovement : MonoBehaviour
         // if previous state was not on the ground but we detect ground
         if (!grounded && groundHit)
         {
-            //Debug.Log("grounded");
             grounded = true; // we are grounded ;)
             bufferJumpUsable = true; // we can buffer a jump again.
             coyoteUsable = true; // and we can use coyote jump again.
@@ -295,23 +293,13 @@ public class BlizzardMovement : MonoBehaviour
         // if we are previously grounded but no longer see ground
         else if (grounded && !groundHit)
         {
-            //Debug.Log("ungrounded");
             grounded = false; // we are no longer grounded.
             lastTimeOnGround = timeSinceFirstFrame; // and the last time we saw the ground was now.
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Hazard")
-        {
-            Vector2 bounceDirection = new Vector2(-transform.localScale.x, 1).normalized;
-            rb.velocity = Vector2.zero;
-            rb.AddForce(bounceDirection  * bounceForce, ForceMode2D.Impulse);
-        }
-    }
+
     private void Flip()
     {
-
         // if looking left flip to look left.
         if (input.x < 0) spriteRenderer.flipX = true;
         // else just look forward normally.

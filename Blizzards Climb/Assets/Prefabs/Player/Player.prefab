@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 5726974826234235426}
   - component: {fileID: 4018927483592638827}
   - component: {fileID: 4773319354166270898}
-  - component: {fileID: 5124743514075001344}
-  m_Layer: 8
+  - component: {fileID: 5566786759288885742}
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.24703124, y: 0.16242187, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9045213319397706731}
@@ -74,14 +74,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.854545, y: 13.382785}
+    oldSize: {x: 1.0546875, y: 1.7970049}
     newSize: {x: 7.854545, y: 13.382785}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.5, y: 9.5}
+  m_Size: {x: 1.0546875, y: 1.7970049}
   m_EdgeRadius: 0
 --- !u!50 &371895544059257593
 Rigidbody2D:
@@ -123,27 +123,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampedFallSpeed: -19
-  animator: {fileID: 5124743514075001344}
-  speed: 20
+  speed: 400
   groundDeceleration: 60
   airSpeed: 4
-  airDeceleration: 120
+  airDeceleration: 60
   jumpingPower: 16
-  apexBonus: 10
+  apexBonus: 5
   jumpBuffer: 0.2
   coyoteTime: 0.15
-  groundPositionLocal: {x: 0, y: -0.75}
-  groundPosSize: {x: 1.12, y: 0.12}
+  groundPositionLocal: {x: 0, y: -0.9}
+  groundPosSize: {x: 1.05, y: 0.12}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   maxSlopeAngle: 75
-  edgePositionLocal: {x: 0, y: -0.4}
-  edgeRayHit: 1
-  edgeCorrectionPower: 10
+  edgePositionLocal: {x: 0, y: 0}
+  edgeRayHit: 0
+  edgeCorrectionPower: 8
   edgeGrabCooldown: 1
   spriteRenderer: {fileID: 4018927483592638827}
   rb: {fileID: 371895544059257593}
+  animator: {fileID: 5566786759288885742}
 --- !u!212 &4018927483592638827
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -208,9 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3aff021db058a46975fe6656b8caba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 0
   maxHealth: 10
---- !u!95 &5124743514075001344
+--- !u!95 &5566786759288885742
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 1769870160179072289}
   m_Layer: 2
   m_Name: Player Trail
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
