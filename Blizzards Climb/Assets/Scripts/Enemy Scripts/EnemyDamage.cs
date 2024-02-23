@@ -11,7 +11,8 @@ public class EnemyDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class EnemyDamage : MonoBehaviour
         }
         if (destroyOnEvent == true)
         {
-            // Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
 
     }
@@ -37,7 +38,7 @@ public class EnemyDamage : MonoBehaviour
         }
         if (destroyOnEvent == true)
         {
-            // Destroy(collider.gameObject);
+            Destroy(this.gameObject);
         }
 
     }
