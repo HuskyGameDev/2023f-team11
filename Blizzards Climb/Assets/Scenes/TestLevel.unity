@@ -10583,17 +10583,9 @@ PrefabInstance:
       propertyPath: startPoint
       value: 
       objectReference: {fileID: 419173033}
-    - target: {fileID: 1725940592177346367, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
-      propertyPath: dropSnowballInterval
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4616076810526981168, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
       propertyPath: m_Name
       value: Smart Bird
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616076810526981168, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4746970599748331364, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
       propertyPath: m_LocalPosition.x
