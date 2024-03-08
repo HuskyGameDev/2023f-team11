@@ -96,7 +96,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.3
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 0}
@@ -123,12 +123,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampedFallSpeed: -19
-  speed: 400
+  endJumpGravityMultiplier: 10
+  speed: 40
   groundDeceleration: 60
-  airSpeed: 4
-  airDeceleration: 60
+  airSpeed: 16
+  airDeceleration: 160
   jumpingPower: 20
-  apexBonus: 5
+  apexBonus: -1
   jumpBuffer: 0.2
   coyoteTime: 0.15
   groundPositionLocal: {x: 0, y: -0.9}
@@ -258,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 8935664615516111269}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
