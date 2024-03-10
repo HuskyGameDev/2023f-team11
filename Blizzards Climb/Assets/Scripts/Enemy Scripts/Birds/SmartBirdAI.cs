@@ -83,7 +83,7 @@ public class SmartBirdAI : MonoBehaviour
     private void DropSnowball()
     {
         // Create an instance of the snowball at the birds position
-        Vector2 spawnBelowBird = new Vector2(transform.position.x, transform.position.y - .5f);
+        Vector2 spawnBelowBird = new Vector2(transform.position.x, transform.position.y - 1f);
         GameObject newSnowball = Instantiate(snowballPrefab, spawnBelowBird, Quaternion.identity);
         // Grab the rigidbody for the newSnowball
         Rigidbody2D snowballRB = newSnowball.GetComponent<Rigidbody2D>();
