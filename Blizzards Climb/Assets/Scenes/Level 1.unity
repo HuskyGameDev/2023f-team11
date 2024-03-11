@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8200777431098390376, guid: ab8ce3e220dc1444b935ff0fafaa3081, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 1331969221}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8365,7 +8369,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8443,37 +8447,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1331969221
+--- !u!1 &1331969221 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5641502453771626075, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+  m_PrefabInstance: {fileID: 1856943455}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1331969222}
-  m_Layer: 0
-  m_Name: Smart Bird Startpoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1331969222
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1331969221}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.42, y: 20.179998, z: 0.16629788}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1368632997
 GameObject:
   m_ObjectHideFlags: 0
@@ -8552,7 +8530,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.13999999, y: 0.13999999, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -11843,6 +11821,67 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1856943455
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3044925683389803371, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: endPoint
+      value: 
+      objectReference: {fileID: 1283669860}
+    - target: {fileID: 5641502453771626075, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_Name
+      value: Smart Bird Startpoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.179998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.16629788
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935887978503396203, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efeb67c79f9bcbf49bd341c9ca4af7fe, type: 3}
 --- !u!1 &1906768736
 GameObject:
   m_ObjectHideFlags: 0
@@ -12005,7 +12044,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.13999999, y: 0.13999999, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -12532,7 +12571,7 @@ SceneRoots:
   - {fileID: 586505029}
   - {fileID: 13424029}
   - {fileID: 1283669861}
-  - {fileID: 1331969222}
+  - {fileID: 1856943455}
   - {fileID: 7673480355036020327}
   - {fileID: 1906768738}
   - {fileID: 1145072594}

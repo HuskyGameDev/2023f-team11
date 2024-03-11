@@ -10,20 +10,41 @@ public class SmartBirdAI : MonoBehaviour
     private Animator anim; // Bird's animator.
     private Transform currentPoint; // The point in which the bird will move towards.
     public float speed; // The speed at which the Bird will move.
+    private bool flipped = false;
 
-
+    [Header("References")]
+    [SerializeField, Tooltip("If no renderer is set then it will search the gameobject attached to the script for a renderer.")]
+    private SpriteRenderer spriteRenderer;
     [SerializeField] private float dropSnowballInterval = 5f;
     [SerializeField] public GameObject snowballPrefab;
     [SerializeField] private float snowballDropSpeed = 10f;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Sets rb to the Bird's rigidbody in Unity.
-        anim = GetComponent<Animator>(); // Sets anim to the Bird's Animator in Unity.
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>(); // Sets rb to the Bird's rigidbody in Unity.
+        if(anim == null)
+            anim = GetComponent<Animator>(); // Sets anim to the Bird's Animator in Unity.
+        if(startPoint == null)
+        {
+            startPoint = GameObject.Find("Smart Bird Startpoint");
+        }
+        if (endPoint == null)
+        {
+            endPoint = GameObject.Find("Smart Bird Endpoint");
+        }
+
+
         currentPoint = startPoint.transform; // Sets currentPoint to startPoint for initial starting position.
 
         // Use a coroutine for snowballs
         StartCoroutine(DropSnowballRoutine());
+    }
+
+    void awake()
+    {
+        if (!spriteRenderer) // sprite renderer is null
+            spriteRenderer = GetComponent<SpriteRenderer>(); // find something
     }
 
     // Update is called once per frame
@@ -44,13 +65,13 @@ public class SmartBirdAI : MonoBehaviour
         if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == startPoint.transform)
         { // This will change the point destination of the Bird once it reaches the starting point.
             currentPoint = endPoint.transform;
-            transform.localScale = new Vector3(1f, .5f, 1f); // This flips the sprite.
+            Flip();
         }
 
         if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == endPoint.transform)
         { // This will change the point destination of the Bird once it reaches the ending point.
             currentPoint = startPoint.transform;
-            transform.localScale = new Vector3(-1f, .5f, 1f); // This flips the sprite.
+            Flip();
         } 
     }
 
@@ -65,13 +86,16 @@ public class SmartBirdAI : MonoBehaviour
         }
 
     }
-
+    private void Flip()
+    {
+        spriteRenderer.flipX = !spriteRenderer.flipX;
+    }
     // Method for dropping snowball
 
     private void DropSnowball()
     {
         // Create an instance of the snowball at the birds position
-        Vector2 spawnBelowBird = new Vector2(transform.position.x, transform.position.y - .5f);
+        Vector2 spawnBelowBird = new Vector2(transform.position.x, transform.position.y - 1f);
         GameObject newSnowball = Instantiate(snowballPrefab, spawnBelowBird, Quaternion.identity);
         // Grab the rigidbody for the newSnowball
         Rigidbody2D snowballRB = newSnowball.GetComponent<Rigidbody2D>();
@@ -83,7 +107,6 @@ public class SmartBirdAI : MonoBehaviour
         {
             Debug.LogError("Rigidbody2D not found for the snowball");
         }
-
     }
 
     // A method that makes the patrolling points easier to see in Unity.
