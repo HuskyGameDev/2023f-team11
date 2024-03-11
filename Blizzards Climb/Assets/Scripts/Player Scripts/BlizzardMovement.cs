@@ -24,6 +24,7 @@ public class BlizzardMovement : MonoBehaviour
 
     private Vector2 input; // input from player on the horizontal (x) axis -1 for left +1 for right.
 
+    public Vector2 LastInputDirection { get; private set; }
 
     [Header("Jumping")]
     public float jumpingPower = 16f; // jumping power of the player
@@ -124,6 +125,7 @@ public class BlizzardMovement : MonoBehaviour
             // you are trying to jump now.
             isJumping = true;
         }
+        LastInputDirection = input;
         //else if (_PC.Player.Jump.WasReleasedThisFrame()) Debug.Log("Jump Released");
     }
 
@@ -169,10 +171,10 @@ public class BlizzardMovement : MonoBehaviour
         // applies the speed and direction to the rigidbody of the player
         if (grounded && !onSlope())
             //rb.AddForce(Vector2.right * input.x * speed/2, ForceMode2D.Impulse);
-            rb.velocity = new Vector2(input.x * speed * Time.fixedDeltaTime, rb.velocity.y-.5f);
+            rb.velocity = new Vector2(input.x * speed * Time.fixedDeltaTime, rb.velocity.y - .5f);
         //else if (grounded && onSlope()) // else if you are on a slope and grounded move the rigidbody in the direction of slope.
-            //rb.AddForce(GetSlopeDirection(input) * speed, ForceMode2D.Impulse);
-            //rb.velocity = GetSlopeDirection(input)*speed * Time.fixedDeltaTime;
+        //rb.AddForce(GetSlopeDirection(input) * speed, ForceMode2D.Impulse);
+        //rb.velocity = GetSlopeDirection(input)*speed * Time.fixedDeltaTime;
         else // else you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
         {
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
@@ -318,5 +320,11 @@ public class BlizzardMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(edgePositionGlobal, edgePositionGlobal + (Mathf.Sign(input.x) * Vector2.right) * edgeRayHit);
     }
+
+    private void GetLastInput()
+    {
+        LastInputDirection = playerControls.Player.Movement.ReadValue<Vector2>();
+    }
+
 }
 
