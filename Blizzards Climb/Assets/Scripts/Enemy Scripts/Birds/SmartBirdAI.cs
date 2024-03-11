@@ -21,8 +21,20 @@ public class SmartBirdAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Sets rb to the Bird's rigidbody in Unity.
-        anim = GetComponent<Animator>(); // Sets anim to the Bird's Animator in Unity.
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>(); // Sets rb to the Bird's rigidbody in Unity.
+        if(anim == null)
+            anim = GetComponent<Animator>(); // Sets anim to the Bird's Animator in Unity.
+        if(startPoint == null)
+        {
+            startPoint = GameObject.Find("Smart Bird Startpoint");
+        }
+        if (endPoint == null)
+        {
+            endPoint = GameObject.Find("Smart Bird Endpoint");
+        }
+
+
         currentPoint = startPoint.transform; // Sets currentPoint to startPoint for initial starting position.
 
         // Use a coroutine for snowballs
@@ -95,7 +107,6 @@ public class SmartBirdAI : MonoBehaviour
         {
             Debug.LogError("Rigidbody2D not found for the snowball");
         }
-
     }
 
     // A method that makes the patrolling points easier to see in Unity.
