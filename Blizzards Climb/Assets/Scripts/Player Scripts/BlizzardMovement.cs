@@ -4,11 +4,13 @@ using UnityEngine;
 /// much inspiration comes from tarodevs video on 2D platformer controller but instead of using custom physics it just uses rigidbody2D <br/>
 /// https://www.youtube.com/watch?v=3sWTzMsmdx8
 /// </summary>
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(Animator))]
+//[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(Animator))]
 public class BlizzardMovement : MonoBehaviour
 {
     [Header("Gravity")]
     public float clampedFallSpeed = -19f;
+    [Tooltip("The higher the number the more abrupt the player's descent.")]
+    public float endJumpGravityMultiplier = 7.5f;
     private float minGravity => cachedGravity * .8f; // the minimum acceptable gravity is 80% of the cached gravity from Rigidbody Gravity Scale.
     private float cachedGravity; // caches the gravity from the Rigidbody Gravity scale
 
@@ -39,6 +41,9 @@ public class BlizzardMovement : MonoBehaviour
     private bool coyoteUsable; // can you jump after leaving solid ground?
     private bool canUseCoyote => coyoteUsable && !grounded && timeSinceFirstFrame < lastTimeOnGround + coyoteTime; // are you able to use coyote time?
 
+    private bool leaveJump;
+    private float lastEnemyJump; // last time player used and enemy to jump.
+    private float enemyJumpBuffer = .5f; // how long before the enemy jump would be safe to no longer overwrite leavejump
     private float lastJumpPressed;
 
 
@@ -77,12 +82,13 @@ public class BlizzardMovement : MonoBehaviour
     public Rigidbody2D rb; // player's rigid body
     public Animator animator;//changes to animations for blizzard are controlled by this
 
-
     // good for keeping track of how long it's been since something has happened or generally just to time buffers or jumps.
     private float timeSinceFirstFrame; // time since the controllers first frame.
 
     #region Player Controls (playerControls)
     private CustomInput playerControls; // use the new input system for player control so you can easily allow for interchange between arrow keys, wasd, or gamepad
+
+
     private void OnEnable()
     {
         playerControls.Enable();
@@ -124,7 +130,10 @@ public class BlizzardMovement : MonoBehaviour
             // you are trying to jump now.
             isJumping = true;
         }
-        //else if (_PC.Player.Jump.WasReleasedThisFrame()) Debug.Log("Jump Released");
+        else if ((lastEnemyJump + enemyJumpBuffer < timeSinceFirstFrame) && !playerControls.Player.Jump.IsPressed() && !leaveJump && !grounded && rb.velocity.y > 0)
+        {
+            leaveJump = true;
+        }
     }
 
     void Update()
@@ -168,16 +177,17 @@ public class BlizzardMovement : MonoBehaviour
     {
         // applies the speed and direction to the rigidbody of the player
         if (grounded && !onSlope())
-            //rb.AddForce(Vector2.right * input.x * speed/2, ForceMode2D.Impulse);
-            rb.velocity = new Vector2(input.x * speed * Time.fixedDeltaTime, rb.velocity.y-.5f);
-        //else if (grounded && onSlope()) // else if you are on a slope and grounded move the rigidbody in the direction of slope.
-            //rb.AddForce(GetSlopeDirection(input) * speed, ForceMode2D.Impulse);
-            //rb.velocity = GetSlopeDirection(input)*speed * Time.fixedDeltaTime;
+            rb.AddForce(Vector2.right * input.x * speed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        //rb.velocity = new Vector2(input.x * speed * Time.fixedDeltaTime, rb.velocity.y - .5f);
+        else if (grounded && onSlope()) // else if you are on a slope and grounded move the rigidbody in the direction of slope.
+            rb.AddForce((GetSlopeDirection(input) + (Vector2.up / 100)) * speed * 1.5f * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        //rb.velocity = GetSlopeDirection(input)*speed * Time.fixedDeltaTime;
         else // else you are airborne use an airspeed (horizontal) multiplier instead of normal speed.
         {
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
             var _apexBonus = apexBonus * _apexPoint;
-            rb.AddForce(Vector2.right * input.x * (airSpeed + _apexBonus), ForceMode2D.Force);
+            rb.AddForce(Vector2.right * input.x * (airSpeed + _apexBonus) * Time.fixedDeltaTime, ForceMode2D.Impulse);
+            //rb.velocity = new Vector2(input.x * (airSpeed + _apexBonus) * Time.fixedDeltaTime, rb.velocity.y - rb.gravityScale * Time.fixedDeltaTime);
         }
 
         // lets you maintain some acceleration while keeping controls snappy.
@@ -212,6 +222,12 @@ public class BlizzardMovement : MonoBehaviour
         // if you are not grounded and your y velocity is positive
         if (!grounded && rb.velocity.y > 0)
         {
+            if (leaveJump)
+            {
+                var newVelocity = new Vector2(rb.velocity.x, 0);
+                newVelocity.y = Mathf.MoveTowards(rb.velocity.y, clampedFallSpeed, (rb.gravityScale * endJumpGravityMultiplier) * Time.deltaTime);
+                rb.velocity = newVelocity;
+            }
             // get the apex point of your jump.
             var _apexPoint = Mathf.InverseLerp(jumpingPower, 0, Mathf.Abs(rb.velocity.y));
             // change the gravity scale based on how close you are to the apex. (closer to apex means lesser gravity)
@@ -237,6 +253,8 @@ public class BlizzardMovement : MonoBehaviour
         // don't want to use an old jump time so reset
         lastJumpPressed = 0;
 
+        leaveJump = false;
+
         // reset the y velocity.
         rb.velocity = new Vector2(rb.velocity.x, 0);
 
@@ -244,6 +262,13 @@ public class BlizzardMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
 
         animator.SetTrigger("Jump");
+    }
+
+    public void EnemyJump()
+    {
+        lastEnemyJump = timeSinceFirstFrame;
+        leaveJump = false;
+        rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse); // add some feedback to killing an enemy
     }
 
     private Vector2 GetSlopeDirection(Vector2 direction)
@@ -288,6 +313,7 @@ public class BlizzardMovement : MonoBehaviour
         {
             grounded = true; // we are grounded ;)
             bufferJumpUsable = true; // we can buffer a jump again.
+            leaveJump = false;
             coyoteUsable = true; // and we can use coyote jump again.
         }
         // if we are previously grounded but no longer see ground
