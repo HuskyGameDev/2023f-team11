@@ -26,6 +26,7 @@ public class BlizzardMovement : MonoBehaviour
 
     private Vector2 input; // input from player on the horizontal (x) axis -1 for left +1 for right.
 
+    public Vector2 LastInputDirection { get; private set; }
 
     [Header("Jumping")]
     public float jumpingPower = 16f; // jumping power of the player
@@ -130,6 +131,8 @@ public class BlizzardMovement : MonoBehaviour
             // you are trying to jump now.
             isJumping = true;
         }
+        LastInputDirection = input;
+        //else if (_PC.Player.Jump.WasReleasedThisFrame()) Debug.Log("Jump Released");
         else if ((lastEnemyJump + enemyJumpBuffer < timeSinceFirstFrame) && !playerControls.Player.Jump.IsPressed() && !leaveJump && !grounded && rb.velocity.y > 0)
         {
             leaveJump = true;
@@ -344,5 +347,11 @@ public class BlizzardMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(edgePositionGlobal, edgePositionGlobal + (Mathf.Sign(input.x) * Vector2.right) * edgeRayHit);
     }
+
+    private void GetLastInput()
+    {
+        LastInputDirection = playerControls.Player.Movement.ReadValue<Vector2>();
+    }
+
 }
 
