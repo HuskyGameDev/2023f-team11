@@ -131,12 +131,13 @@ public class BlizzardMovement : MonoBehaviour
             // you are trying to jump now.
             isJumping = true;
         }
-        LastInputDirection = input;
+        
         //else if (_PC.Player.Jump.WasReleasedThisFrame()) Debug.Log("Jump Released");
         else if ((lastEnemyJump + enemyJumpBuffer < timeSinceFirstFrame) && !playerControls.Player.Jump.IsPressed() && !leaveJump && !grounded && rb.velocity.y > 0)
         {
             leaveJump = true;
         }
+        LastInputDirection = input;
     }
 
     void Update()
