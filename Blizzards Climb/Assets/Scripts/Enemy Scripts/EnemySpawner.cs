@@ -16,6 +16,15 @@ public class EnemySpawner : MonoBehaviour
         if(!spawnedEnemy && counter >= interval) {
             counter = 0;
             spawnedEnemy = Instantiate(enemy, transform.position, transform.rotation);
+            if(spawnedEnemy.TryGetComponent<SkierPatrol>(out SkierPatrol skier)) {
+                skier.startPoint = this.gameObject;
+            } 
+            else if (spawnedEnemy.TryGetComponent<FastBirdAI>(out FastBirdAI bird)) {
+                bird.startPoint = this.gameObject;
+            } 
+            else if (spawnedEnemy.TryGetComponent<FastBirdLAI>(out FastBirdLAI lbird)) {
+                lbird.startPoint = this.gameObject;
+            }
         }
         else if(spawnedEnemy && counter >= deathInterval) {
             Destroy(spawnedEnemy);
