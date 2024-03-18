@@ -1175,53 +1175,6 @@ Transform:
   - {fileID: 82493462}
   m_Father: {fileID: 602531772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &849000078
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 849000080}
-  - component: {fileID: 849000079}
-  m_Layer: 0
-  m_Name: Skier Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &849000079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849000078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fc48b6c7b05d7f499b47a54fce3dec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 2091205932}
-  interval: 3
-  deathInterval: 1.7
---- !u!4 &849000080
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849000078}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 31, z: 0.16563323}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1173460784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,6 +2049,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1294487099
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.16563323
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817100834322273830, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861598158981278150, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: m_Name
+      value: Skier Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130506241267922852, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: interval
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130506241267922852, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
+      propertyPath: deathInterval
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2d74990e1769ea43bbfd1dc2bdd832f, type: 3}
 --- !u!1 &1301053044
 GameObject:
   m_ObjectHideFlags: 0
@@ -8061,72 +8079,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2091205931
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1288135381758832839, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: startPoint
-      value: 
-      objectReference: {fileID: 849000078}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -18.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 33.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7778340976240215966, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8686816993880445997, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-      propertyPath: m_Name
-      value: Skier
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
---- !u!1 &2091205932 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8686816993880445997, guid: 6d578aa9ff3dad2448a0264ff64bf0d0, type: 3}
-  m_PrefabInstance: {fileID: 2091205931}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2102947344
 GameObject:
   m_ObjectHideFlags: 0
@@ -8324,6 +8276,5 @@ SceneRoots:
   - {fileID: 1213628152}
   - {fileID: 1882567356}
   - {fileID: 1718841708}
-  - {fileID: 849000080}
-  - {fileID: 2091205931}
   - {fileID: 392427906}
+  - {fileID: 1294487099}
