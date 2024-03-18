@@ -8,7 +8,7 @@ public class Transition2 : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other){
 
         if (other.gameObject.tag == "Player"){
-            SceneManager.LoadScene("demo end", LoadSceneMode.Single);
+            SceneManager.LoadScene("level 3", LoadSceneMode.Single);
         }
     }
 }

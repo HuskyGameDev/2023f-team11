@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyCollision: MonoBehaviour
 {
@@ -28,6 +29,28 @@ public class EnemyCollision: MonoBehaviour
         {
             // Grab the PlayeHealth script and call the TakeDamage 
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+
+            if (isHazard)
+            {
+                
+                BlizzardMovement playerMovement = collision.gameObject.GetComponent<BlizzardMovement>();
+                Vector2 lastInputDirection = playerMovement.LastInputDirection;
+                
+
+                // Check if there was any input (to avoid bouncing when standing still)
+                Debug.Log(lastInputDirection);
+                if (lastInputDirection != Vector2.zero)
+                {
+                    Debug.Log("penis");
+                    // Apply the bounce force in the opposite direction of the last input
+                    Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+                    if (playerRb != null)
+                    {
+                        Vector2 bounceDirection = -lastInputDirection.normalized; // Normalize to ensure consistent force
+                        playerRb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
+                    }
+                }
+            }
         }
         //Destroy the gameObject
         if (destroyOnCollision)
