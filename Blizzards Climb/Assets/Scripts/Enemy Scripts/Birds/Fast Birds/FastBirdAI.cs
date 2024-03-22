@@ -19,7 +19,7 @@ public class FastBirdAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 point = currentPoint.position - transform.position;
+        Vector2 point = startPoint.transform.position - transform.position;
         if(currentPoint == startPoint.transform) {
             rb.velocity = new Vector2(-speed, 0);
         }
