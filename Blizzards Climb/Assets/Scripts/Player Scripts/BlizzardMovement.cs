@@ -266,6 +266,11 @@ public class BlizzardMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
 
         animator.SetTrigger("Jump");
+
+        // Play jump sound
+        // AudioSource sfx = GameObject.FindGameObjectWithTag("GM").GetComponent<AudioSource>();
+        // sfx.Play();
+
     }
 
     public void EnemyJump()

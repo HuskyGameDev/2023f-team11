@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Projectile
   - Hazard
+  - SFXPlayer
+  - GM
   layers:
   - Default
   - TransparentFX
