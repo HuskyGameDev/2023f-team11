@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampedFallSpeed: -19
-  endJumpGravityMultiplier: 10
+  endJumpGravityMultiplier: 25
   speed: 40
   groundDeceleration: 60
   airSpeed: 16
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3aff021db058a46975fe6656b8caba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 10
+  health: 5
+  maxHealth: 5
 --- !u!95 &7792624072033422444
 Animator:
   serializedVersion: 5
