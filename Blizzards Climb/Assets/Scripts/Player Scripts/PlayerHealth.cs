@@ -15,5 +15,17 @@ public class PlayerHealth : MonoBehaviour
 	{
 		health -= damage;
 		Debug.Log("Health = " + health.ToString());
+
+		if (health <= 0)
+		{
+			health = 0;
+			PlayerDied();
+		}
+	}
+
+	private void PlayerDied()
+	{
+		LevelManager.instance.GameOver();
+		gameObject.SetActive(false);
 	}
 }
