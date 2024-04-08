@@ -876,10 +876,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 971054532745238560, guid: 406b17bfb74e4c94ab061af956ebdeaa, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1356442517605382691, guid: 406b17bfb74e4c94ab061af956ebdeaa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.89
@@ -923,10 +919,6 @@ PrefabInstance:
     - target: {fileID: 2518735936067879226, guid: 406b17bfb74e4c94ab061af956ebdeaa, type: 3}
       propertyPath: m_Name
       value: End Flag
-      objectReference: {fileID: 0}
-    - target: {fileID: 2843555626240803720, guid: 406b17bfb74e4c94ab061af956ebdeaa, type: 3}
-      propertyPath: m_Alpha
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1253,6 +1245,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTarget: {fileID: 664414118}
+  backgroundTarget: {fileID: 0}
+  cameraObject: {fileID: 0}
+  background: {fileID: 0}
+  leftBound: 0.3
+  rightBound: 0.7
   background1: {fileID: 1906768738}
   background2: {fileID: 325266730}
   size: 0

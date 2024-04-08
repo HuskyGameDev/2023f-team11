@@ -20,12 +20,10 @@ public class PlayerHealth : MonoBehaviour
 	public void TakeDamage(int damage)
 	{
 		health -= damage;
-		if (health <= 0) KillPlayer();
 		Debug.Log("Health = " + health.ToString());
 
 		if (health <= 0)
 		{
-			health = 0;
 			PlayerDied();
 		}
 	}
@@ -52,12 +50,6 @@ public class PlayerHealth : MonoBehaviour
 
 		return true;
     }
-
-	private void KillPlayer()
-	{
-		// i mean you don't have to do anything fancy just reload the current scene?
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-	}
 
 	IEnumerator DisplayFullMessage()
 	{
