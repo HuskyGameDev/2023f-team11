@@ -131,17 +131,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 559363774338092521, guid: 034c0c7aed9c90a41a936346d33bfb4e, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1825972282684095366, guid: 034c0c7aed9c90a41a936346d33bfb4e, type: 3}
       propertyPath: m_Name
       value: TreeHazard
-      objectReference: {fileID: 0}
-    - target: {fileID: 2596669262350753260, guid: 034c0c7aed9c90a41a936346d33bfb4e, type: 3}
-      propertyPath: m_Material
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6261007150239787027, guid: 034c0c7aed9c90a41a936346d33bfb4e, type: 3}
       propertyPath: m_LocalScale.x
@@ -8702,6 +8694,10 @@ PrefabInstance:
     - target: {fileID: 6634433257178546572, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935664615516111269, guid: 9f9e2ebc750738642bc42b95256b41c8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
