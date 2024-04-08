@@ -237,8 +237,8 @@ public class BlizzardMovement : MonoBehaviour
             // change the gravity scale based on how close you are to the apex. (closer to apex means lesser gravity)
             rb.gravityScale = Mathf.Lerp(minGravity, cachedGravity, _apexPoint);
         }
-        // only custom physics i'm going to do is clamping the fall speed of the player
-        // we don't really want the player to have no control when falling (outside of maybe punishment for getting hit by an enemy?)
+        // only custom physics i want to do is clamping the fall speed of the player
+        // we don't really want the player to have no control when falling
         // so clamp the speed at which the player falls giving them more time to react to the fall.
         else if (!grounded && rb.velocity.y < 0)
         {
