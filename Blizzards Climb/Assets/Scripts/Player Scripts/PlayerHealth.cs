@@ -22,6 +22,18 @@ public class PlayerHealth : MonoBehaviour
 		health -= damage;
 		if (health <= 0) KillPlayer();
 		Debug.Log("Health = " + health.ToString());
+
+		if (health <= 0)
+		{
+			health = 0;
+			PlayerDied();
+		}
+	}
+
+	private void PlayerDied()
+	{
+		LevelManager.instance.GameOver();
+		gameObject.SetActive(false);
 	}
 
 	public bool HealPlayer(int healAmount)
