@@ -261,10 +261,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 6044685393039972894, guid: 0c6a0685aedc7884889c93375fab0af6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7284051198541345193, guid: 0c6a0685aedc7884889c93375fab0af6, type: 3}
       propertyPath: m_Pivot.x
       value: 0

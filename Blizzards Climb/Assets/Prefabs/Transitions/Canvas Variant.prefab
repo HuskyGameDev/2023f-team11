@@ -128,7 +128,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -351,11 +351,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4467540462271634378, guid: 2fe5bf4f9ff3b7b4aa13a3240f533f75, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 632
+      value: 431.5
       objectReference: {fileID: 0}
     - target: {fileID: 4467540462271634378, guid: 2fe5bf4f9ff3b7b4aa13a3240f533f75, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 359
+      value: 267
       objectReference: {fileID: 0}
     - target: {fileID: 5222961680945055994, guid: 2fe5bf4f9ff3b7b4aa13a3240f533f75, type: 3}
       propertyPath: m_SizeDelta.x
