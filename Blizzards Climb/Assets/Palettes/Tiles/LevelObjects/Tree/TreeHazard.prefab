@@ -102,7 +102,7 @@ MonoBehaviour:
   damage: 1
   destroyOnCollision: 0
   isHazard: 1
-  bounceForce: 1.2
+  bounceForce: 15
 --- !u!68 &559363774338092521
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1825972282684095366}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: bddee54d4f294ae4ab555b677c62d234, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -167,7 +167,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: bddee54d4f294ae4ab555b677c62d234, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
