@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 
 public class PlayerHealth : MonoBehaviour 
+
 {
-	public int health { get; private set; }
+    public AudioSource audio;
+	public AudioClip clip;
+    public int health { get; private set; }
 	public int maxHealth { get; private set; } = 5;
 
 	public TextMeshPro fullHealth_Text;
@@ -21,6 +25,8 @@ public class PlayerHealth : MonoBehaviour
 	{
 		health -= damage;
 		Debug.Log("Health = " + health.ToString());
+		audio.clip = clip;
+		audio.Play();
 
 		if (health <= 0)
 		{
