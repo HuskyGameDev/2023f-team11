@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &55732592
 Transform:
   m_ObjectHideFlags: 0
@@ -15047,6 +15047,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: c070bcb2ee1ea0f47ad914f7d0a03314, type: 3}
+    - target: {fileID: 929557159269075850, guid: b1d79da9521b6de40af9712031e87ed6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 90dfd50da536cb44aae52258077949e0, type: 2}
     - target: {fileID: 4513008148818402366, guid: b1d79da9521b6de40af9712031e87ed6, type: 3}
       propertyPath: m_Name
       value: BackgroundMusic

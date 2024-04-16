@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2794246362955056331}
   - component: {fileID: 1159945091570507316}
   - component: {fileID: 6457637980700643107}
+  - component: {fileID: 1259080820012276163}
   m_Layer: 0
   m_Name: Fast Bird (L)
   m_TagString: Untagged
@@ -196,6 +197,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1259080820012276163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5327729183045779076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df7492dd53a8bb47bbf0770b206646a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  destroyOnCollision: 0
+  isHazard: 1
+  bounceForce: 10
 --- !u!1 &5830960426392517258
 GameObject:
   m_ObjectHideFlags: 0

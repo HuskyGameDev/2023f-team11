@@ -24,7 +24,9 @@ public class EnemyCollision: MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {   // Check collision on ground to destroy snowball
-     
+
+        if (collision.otherCollider.name != gameObject.name) return;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             // Grab the PlayeHealth script and call the TakeDamage 
