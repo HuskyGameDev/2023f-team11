@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe0303da4d20b447aa40dd5e69f449c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 0}
 --- !u!1 &8686816993880445997
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +95,7 @@ GameObject:
   - component: {fileID: 4836142331438114690}
   - component: {fileID: 56433066624409951}
   - component: {fileID: 1288135381758832839}
+  - component: {fileID: 2171388046314285052}
   m_Layer: 0
   m_Name: Skier
   m_TagString: Untagged
@@ -276,3 +278,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 0}
   speed: 5
+--- !u!114 &2171388046314285052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686816993880445997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df7492dd53a8bb47bbf0770b206646a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  destroyOnCollision: 0
+  isHazard: 1
+  bounceForce: 10

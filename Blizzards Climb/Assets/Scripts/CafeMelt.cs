@@ -13,9 +13,12 @@ public class CafeMelt : MonoBehaviour
         if (collision.TryGetComponent<PlayerHealth>(out var player))
         {
             if (player.HealPlayer(healthToRestore))
+            {
                 audio.clip = clip;
                 audio.Play();
                 Destroy(this.gameObject);
+            }
+                
         }
     }
 }
