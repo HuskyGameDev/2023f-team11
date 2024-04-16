@@ -14846,6 +14846,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 0a88ef28195ff394ea705f22063b0604, type: 3}
+    - target: {fileID: 929557159269075850, guid: b1d79da9521b6de40af9712031e87ed6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 90dfd50da536cb44aae52258077949e0, type: 2}
     - target: {fileID: 4513008148818402366, guid: b1d79da9521b6de40af9712031e87ed6, type: 3}
       propertyPath: m_Name
       value: BackgroundMusic
@@ -14943,6 +14947,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2481250327005943569, guid: 8ad5abe1f851dd64bbfddf51e60edb15, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 90dfd50da536cb44aae52258077949e0, type: 2}
     - target: {fileID: 7767738717753552925, guid: 8ad5abe1f851dd64bbfddf51e60edb15, type: 3}
       propertyPath: m_Name
       value: SFXPlayer

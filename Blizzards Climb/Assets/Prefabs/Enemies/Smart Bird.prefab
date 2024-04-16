@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 6222232023800071052}
   - component: {fileID: 1725940592177346367}
   - component: {fileID: 7210823766077273263}
+  - component: {fileID: -3751508991894032204}
   m_Layer: 0
   m_Name: Smart Bird
   m_TagString: Untagged
@@ -292,3 +293,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3751508991894032204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4616076810526981168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df7492dd53a8bb47bbf0770b206646a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  destroyOnCollision: 0
+  isHazard: 1
+  bounceForce: 10
